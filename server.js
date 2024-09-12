@@ -139,11 +139,12 @@ server.get("/brand", (req, res) => {
 
 // Custom GET route for events
 server.get("/brand/:brand_id/event", (req, res) => {
+  const { brand_id } = req.params;
   const { search_term = "", limit = 10, last_id } = req.query;
   const events = router.db.get("event").value();
 
   // Filter brands based on search_term
-  let filteredEvents = events;
+  let filteredEvents = events.filter((event) => event.brand_id === brand_id);
   if (search_term) {
     filteredEvents = events.filter((event) =>
       event.name.toLowerCase().includes(search_term.toLowerCase())
