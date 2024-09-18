@@ -282,3 +282,15 @@ const PORT = 6969;
 app.listen(PORT, () => {
   console.log("Server is running on...");
 });
+
+// GET /event/{event_id}
+server.get("/event/:event_id", (req, res) => {
+  const { event_id } = req.params;
+  const event = router.db.get("event").find({ id: event_id }).value();
+
+  if (event) {
+    res.json({ data: event });
+  } else {
+    res.status(404).json({ message: "Event not found" });
+  }
+});
