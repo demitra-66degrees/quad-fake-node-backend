@@ -273,16 +273,6 @@ server.get("/brand/:brand_id", (req, res) => {
   }
 });
 
-server.use(router);
-
-const app = express();
-app.use(server);
-
-const PORT = 6969;
-app.listen(PORT, () => {
-  console.log("Server is running on...");
-});
-
 // GET /event/{event_id}
 server.get("/event/:event_id", (req, res) => {
   const { event_id } = req.params;
@@ -353,4 +343,14 @@ server.patch("/event/:event_id", (req, res) => {
   } else {
     res.status(404).json({ message: "Event not found" });
   }
+});
+
+server.use(router);
+
+const app = express();
+app.use(server);
+
+const PORT = 6969;
+app.listen(PORT, () => {
+  console.log("Server is running on...");
 });
