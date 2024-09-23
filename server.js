@@ -197,7 +197,7 @@ server.post("/client/:client_id/brand", (req, res) => {
   };
 
   try {
-    const client = router.db.get("clients").find({ id: clientId }).value();
+    const client = router.db.get("client").find({ id: clientId }).value();
 
     if (!client) {
       return res
@@ -290,6 +290,66 @@ server.get("/event/:event_id", (req, res) => {
 
   if (event) {
     res.json({ data: event });
+  } else {
+    res.status(404).json({ message: "Event not found" });
+  }
+});
+
+// POST /brand/:brand_id/event
+server.post("/brand/:brand_id/event", (req, res) => {
+  const { brand_id } = req.params;
+  console.log(req.body);
+  const newEvent = {
+    ...req.body,
+    brand_id: brand_id,
+    id: Date.now().toString(), // Generate a unique ID
+    created_by: "user_12",
+    created_at: "2022-06-10 17:09:26",
+  };
+
+  try {
+    const brand = router.db.get("brand").find({ id: brand_id }).value();
+
+    if (!brand) {
+      return res
+        .status(404)
+        .json({ message: `Brand with id: ${brand_id} not found` });
+    }
+
+    // Push the new event
+    router.db.get("event").push(newEvent).write();
+    res.status(201).json({ data: newEvent });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Couldn't create event" });
+  }
+});
+
+// PATCH /event/:event_id
+server.patch("/event/:event_id", (req, res) => {
+  const { event_id } = req.params;
+  const updatedFields = req.body;
+  const event = router.db.get("event").find({ id: event_id }).value();
+
+  if (event) {
+    try {
+      const updatedEvent = {
+        ...event,
+        ...updatedFields,
+      };
+
+      // Write the updated event to the database
+      router.db
+        .get("event")
+        .find({ id: event_id })
+        .assign(updatedEvent)
+        .write();
+
+      res.status(200).json({ data: updatedEvent });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Couldn't update event" });
+    }
   } else {
     res.status(404).json({ message: "Event not found" });
   }
