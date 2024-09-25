@@ -3,6 +3,7 @@ const express = require("express");
 const server = jsonServer.create();
 const router = jsonServer.router("db.json");
 const middlewares = jsonServer.defaults();
+const path = require("path");
 
 server.use(middlewares);
 
@@ -343,6 +344,11 @@ server.patch("/event/:event_id", (req, res) => {
   } else {
     res.status(404).json({ message: "Event not found" });
   }
+});
+
+server.get("/pdf", (req, res) => {
+  const pdfPath = path.join(__dirname, "public/template.pdf");
+  res.sendFile(pdfPath);
 });
 
 server.use(router);

@@ -17377,6 +17377,38 @@
       "id": "1727122748198",
       "created_by": "user_12",
       "created_at": "2022-06-10 17:09:26"
+    },
+    {
+      "name": "Beep Boop",
+      "creation_type": "idml",
+      "brand_id": "mphp2ozmfupvswh07ic2fiyn",
+      "id": "1727123261003",
+      "created_by": "user_12",
+      "created_at": "2022-06-10 17:09:26"
+    },
+    {
+      "name": "Example event",
+      "creation_type": "new_template",
+      "brand_id": "mphp2ozmfupvswh07ic2fiyn",
+      "id": "1727126044991",
+      "created_by": "user_12",
+      "created_at": "2022-06-10 17:09:26"
+    },
+    {
+      "name": "Example Event",
+      "creation_type": "new_template",
+      "brand_id": "mphp2ozmfupvswh07ic2fiyn",
+      "id": "1727126462950",
+      "created_by": "user_12",
+      "created_at": "2022-06-10 17:09:26"
+    },
+    {
+      "name": "AstroWave Event",
+      "creation_type": "idml",
+      "brand_id": "txtbm2xy5g5rw7ldatjuqnn3",
+      "id": "1727127484046",
+      "created_by": "user_12",
+      "created_at": "2022-06-10 17:09:26"
     }
   ]
 }
