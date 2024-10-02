@@ -147,7 +147,7 @@ server.get("/brand/:brand_id/event", (req, res) => {
   // Filter brands based on search_term
   let filteredEvents = events.filter((event) => event.brand_id === brand_id);
   if (search_term) {
-    filteredEvents = events.filter((event) =>
+    filteredEvents = filteredEvents.filter((event) =>
       event.name.toLowerCase().includes(search_term.toLowerCase())
     );
   }
