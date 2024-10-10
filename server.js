@@ -139,7 +139,7 @@ server.get("/brand", (req, res) => {
 });
 
 // Custom GET route for events
-server.get("/brand/:brand_id/event", (req, res) => {
+server.get("/brand/:brand_id/events", (req, res) => {
   const { brand_id } = req.params;
   const { search_term = "", limit = 10, last_id } = req.query;
   const events = router.db.get("event").value();
@@ -287,7 +287,7 @@ server.get("/event/:event_id", (req, res) => {
 });
 
 // POST /brand/:brand_id/event
-server.post("/brand/:brand_id/event", (req, res) => {
+server.post("/brand/:brand_id/events", (req, res) => {
   const { brand_id } = req.params;
   console.log(req.body);
   const newEvent = {
@@ -295,18 +295,10 @@ server.post("/brand/:brand_id/event", (req, res) => {
     brand_id: brand_id,
     id: Date.now().toString(), // Generate a unique ID
     created_by: "user_12",
-    created_at: "2022-06-10 17:09:26",
+    created_at: new Date().toISOString().replace("T", " ").slice(0, 19),
   };
 
   try {
-    const brand = router.db.get("brand").find({ id: brand_id }).value();
-
-    if (!brand) {
-      return res
-        .status(404)
-        .json({ message: `Brand with id: ${brand_id} not found` });
-    }
-
     // Push the new event
     router.db.get("event").push(newEvent).write();
     res.status(201).json({ data: newEvent });
